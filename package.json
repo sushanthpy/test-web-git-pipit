@@ -1,0 +1,10 @@
+{
+  "name": "flight-booking-platform",
+  "version": "1.0.0",
+  "description": "Full-featured flight booking website",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}

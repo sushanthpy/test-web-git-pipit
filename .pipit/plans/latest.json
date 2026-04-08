@@ -1,0 +1,79 @@
+{
+  "planning_state": {
+    "selected_plan": {
+      "strategy": "MinimalPatch",
+      "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+      "expected_value": 0.55,
+      "estimated_cost": 0.25,
+      "verification_plan": [
+        {
+          "description": "Run the narrowest command or test that directly checks the requested behavior."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    "candidate_plans": [
+      {
+        "strategy": "MinimalPatch",
+        "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+        "expected_value": 0.55,
+        "estimated_cost": 0.25,
+        "verification_plan": [
+          {
+            "description": "Run the narrowest command or test that directly checks the requested behavior."
+          }
+        ],
+        "plan_source": "Heuristic"
+      },
+      {
+        "strategy": "RootCauseRepair",
+        "rationale": "Spend additional effort to understand the underlying failure mode before editing.",
+        "expected_value": 0.68,
+        "estimated_cost": 0.45,
+        "verification_plan": [
+          {
+            "description": "Read the relevant implementation and documentation before mutating."
+          },
+          {
+            "description": "Verify behavior with a runtime command or focused test after the change."
+          }
+        ],
+        "plan_source": "Heuristic"
+      },
+      {
+        "strategy": "DiagnosticOnly",
+        "rationale": "If confidence stays too low, stop mutation and return evidence plus options.",
+        "expected_value": 0.35,
+        "estimated_cost": 0.15,
+        "verification_plan": [
+          {
+            "description": "Collect evidence without mutating if the state remains too uncertain."
+          }
+        ],
+        "plan_source": "Heuristic"
+      },
+      {
+        "strategy": "CharacterizationFirst",
+        "rationale": "Stabilize expected behavior with explicit checks before trusting a repair.",
+        "expected_value": 0.64,
+        "estimated_cost": 0.55,
+        "verification_plan": [
+          {
+            "description": "Run the documented examples or existing targeted checks first."
+          },
+          {
+            "description": "Re-run those checks after the change and compare outputs."
+          }
+        ],
+        "plan_source": "Heuristic"
+      }
+    ],
+    "plan_pivots": []
+  },
+  "proof_summary": {
+    "objective": "Read req.md carefully. It contains the full requirements for a flight booking website. Build a working implementation of this website. Use Next.js 14 (App Router) with TypeScript for the frontend, and a Node.js/Express backend with PostgreSQL. Create the full project structure, database schema, API routes, and frontend pages. Focus on the core booking flow: flight search, results listing, booking with passenger details, payment mock, confirmation, and booking management. Include an admin panel skeleton. Make it actually runnable with npm install && npm run dev.",
+    "confidence": 0.57102567,
+    "risk_score": 0.18480001,
+    "proof_file": "/Users/sushanth/test-web/.pipit/proofs/proof-1775604194.json"
+  }
+}

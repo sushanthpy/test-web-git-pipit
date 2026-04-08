@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies (frontend)
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
+
+    - name: Install dependencies (backend)
+      working-directory: ./backend
+      run: npm ci
+
+    - name: Build backend
+      working-directory: ./backend
+      run: npm run build
+
+    - name: Run tests (frontend)
+      working-directory: ./frontend
+      run: npm test
+
+    - name: Run tests (backend)
+      working-directory: ./backend
+      run: npm test

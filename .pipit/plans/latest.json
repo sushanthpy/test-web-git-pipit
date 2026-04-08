@@ -68,12 +68,41 @@
         "plan_source": "Heuristic"
       }
     ],
-    "plan_pivots": []
+    "plan_pivots": [
+      {
+        "turn_number": 2,
+        "from": {
+          "strategy": "Greenfield",
+          "rationale": "Build from scratch — prioritize throughput and structure creation over verification.",
+          "expected_value": 0.92,
+          "estimated_cost": 0.1,
+          "verification_plan": [
+            {
+              "description": "Verify the project builds and runs after all files are created."
+            }
+          ],
+          "plan_source": "Heuristic"
+        },
+        "to": {
+          "strategy": "MinimalPatch",
+          "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+          "expected_value": 0.55,
+          "estimated_cost": 0.25,
+          "verification_plan": [
+            {
+              "description": "Run the narrowest command or test that directly checks the requested behavior."
+            }
+          ],
+          "plan_source": "Heuristic"
+        },
+        "trigger": "Plan changed after verification evidence update: Prefer the smallest change that could satisfy the objective with minimal blast radius."
+      }
+    ]
   },
   "proof_summary": {
-    "objective": "Read req.md carefully. It contains the full requirements for a flight booking website. Build a working implementation of this website. Use Next.js 14 (App Router) with TypeScript for the frontend, and a Node.js/Express backend with PostgreSQL. Create the full project structure, database schema, API routes, and frontend pages. Focus on the core booking flow: flight search, results listing, booking with passenger details, payment mock, confirmation, and booking management. Include an admin panel skeleton. Make it actually runnable with npm install && npm run dev.",
-    "confidence": 0.57102567,
-    "risk_score": 0.18480001,
-    "proof_file": "/Users/sushanth/test-web/.pipit/proofs/proof-1775604194.json"
+    "objective": "Do these steps:\n1. Create a new branch called 'feature/add-env-setup'\n2. Create a file called setup.sh with a basic environment setup script that checks for Node.js and npm\n3. git add setup.sh && git commit -m 'feat: add environment setup script'\n4. Switch back to the main branch\n5. Run git log --oneline --all to show both branches\nReport each step's result.",
+    "confidence": 0.53000003,
+    "risk_score": 0.33600003,
+    "proof_file": "/Users/sushanth/test-web/.pipit/proofs/proof-1775619254.json"
   }
 }

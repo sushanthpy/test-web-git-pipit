@@ -1,0 +1,178 @@
+{
+  "objective": {
+    "statement": "Run these commands and report the result of each:\n1. git status\n2. git add CONTRIBUTING.md\n3. git commit -m 'docs: add CONTRIBUTING.md'\n4. git push origin main",
+    "success_criteria": [
+      {
+        "description": "Produce a codebase state that better satisfies the stated objective and verify it with available evidence."
+      }
+    ],
+    "constraints": []
+  },
+  "selected_plan": {
+    "strategy": "MinimalPatch",
+    "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+    "expected_value": 0.55,
+    "estimated_cost": 0.25,
+    "verification_plan": [
+      {
+        "description": "Run the narrowest command or test that directly checks the requested behavior."
+      }
+    ],
+    "plan_source": "Heuristic"
+  },
+  "candidate_plans": [
+    {
+      "strategy": "MinimalPatch",
+      "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+      "expected_value": 0.55,
+      "estimated_cost": 0.25,
+      "verification_plan": [
+        {
+          "description": "Run the narrowest command or test that directly checks the requested behavior."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "RootCauseRepair",
+      "rationale": "Spend additional effort to understand the underlying failure mode before editing.",
+      "expected_value": 0.68,
+      "estimated_cost": 0.45,
+      "verification_plan": [
+        {
+          "description": "Read the relevant implementation and documentation before mutating."
+        },
+        {
+          "description": "Verify behavior with a runtime command or focused test after the change."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "DiagnosticOnly",
+      "rationale": "If confidence stays too low, stop mutation and return evidence plus options.",
+      "expected_value": 0.35,
+      "estimated_cost": 0.15,
+      "verification_plan": [
+        {
+          "description": "Collect evidence without mutating if the state remains too uncertain."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "CharacterizationFirst",
+      "rationale": "Stabilize expected behavior with explicit checks before trusting a repair.",
+      "expected_value": 0.64,
+      "estimated_cost": 0.55,
+      "verification_plan": [
+        {
+          "description": "Run the documented examples or existing targeted checks first."
+        },
+        {
+          "description": "Re-run those checks after the change and compare outputs."
+        }
+      ],
+      "plan_source": "Heuristic"
+    }
+  ],
+  "plan_pivots": [],
+  "claim": {
+    "objective": {
+      "statement": "Run these commands and report the result of each:\n1. git status\n2. git add CONTRIBUTING.md\n3. git commit -m 'docs: add CONTRIBUTING.md'\n4. git push origin main",
+      "success_criteria": [
+        {
+          "description": "Produce a codebase state that better satisfies the stated objective and verify it with available evidence."
+        }
+      ],
+      "constraints": []
+    },
+    "hypothesis": "If Pipit applies changes guided by the objective, the repository should move to a more correct and validated state: Run these commands and report the result of each:\n1. git status\n2. git add CONTRIBUTING.md\n3. git commit -m 'docs: add CONTRIBUTING.md'\n4. git push origin main",
+    "expected_effects": [
+      "Requested behavior or output should be closer to the objective.",
+      "Evidence should exist for any claimed improvement."
+    ],
+    "assumptions": [
+      {
+        "description": "The provided objective is sufficient to drive the next valid state transition.",
+        "verified": false
+      }
+    ],
+    "verification_plan": [
+      {
+        "description": "Read relevant code and documentation before mutating."
+      },
+      {
+        "description": "Run deterministic checks or commands when available."
+      }
+    ],
+    "confidence": {
+      "root_cause": 0.35,
+      "semantic_understanding": 0.0,
+      "side_effect_risk": 0.4,
+      "verification_strength": 1.0,
+      "environment_certainty": 0.5
+    }
+  },
+  "evidence": [
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git status",
+        "output": "On branch main\nYour branch is up to date with 'origin/main'.\n\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   ....",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git add CONTRIBUTING.md",
+        "output": "Command completed successfully (no output).",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git commit -m 'docs: add CONTRIBUTING.md'",
+        "output": "[main a1da8b9] docs: add CONTRIBUTING.md\n 1 file changed, 65 insertions(+)\n create mode 100644 CONTRIBUTING.md\n",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git push origin main",
+        "output": "[STDERR]\nTo github.com:sushanthpy/test-web-git-pipit.git\n   2103f9a..a1da8b9  main -> main\n",
+        "success": true
+      }
+    }
+  ],
+  "realized_edits": [],
+  "unresolved_assumptions": [],
+  "risk": {
+    "blast_radius": 0.7,
+    "irreversibility": 0.6,
+    "uncertainty": 1.0,
+    "privilege_level": 0.8,
+    "score": 0.33600003,
+    "action_class": "ShellExecution"
+  },
+  "confidence": {
+    "root_cause": 0.35,
+    "semantic_understanding": 0.0,
+    "side_effect_risk": 0.4,
+    "verification_strength": 1.0,
+    "environment_certainty": 0.5
+  },
+  "rollback_checkpoint": {
+    "checkpoint_id": null,
+    "strategy": "No files were modified; rollback is a no-op",
+    "reversible": true
+  },
+  "tiers": {
+    "governor": "Heuristic",
+    "verifier": "Heuristic",
+    "planner": "Heuristic"
+  }
+}

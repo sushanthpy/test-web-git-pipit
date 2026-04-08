@@ -100,9 +100,9 @@
     ]
   },
   "proof_summary": {
-    "objective": "Do these steps:\n1. Create a new branch called 'feature/add-env-setup'\n2. Create a file called setup.sh with a basic environment setup script that checks for Node.js and npm\n3. git add setup.sh && git commit -m 'feat: add environment setup script'\n4. Switch back to the main branch\n5. Run git log --oneline --all to show both branches\nReport each step's result.",
-    "confidence": 0.53000003,
+    "objective": "Do a complex git workflow:\n1. Create and switch to branch 'feature/ci-setup'\n2. Create .github/workflows/ci.yml with a basic Node.js CI workflow\n3. git add -A && git commit -m 'ci: add GitHub Actions workflow'\n4. Switch back to main\n5. Merge feature/ci-setup into main\n6. git push origin main\nReport result of each step.",
+    "confidence": 0.55222225,
     "risk_score": 0.33600003,
-    "proof_file": "/Users/sushanth/test-web/.pipit/proofs/proof-1775619254.json"
+    "proof_file": "/Users/sushanth/test-web/.pipit/proofs/proof-1775619718.json"
   }
 }

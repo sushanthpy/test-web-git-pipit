@@ -1,0 +1,248 @@
+{
+  "objective": {
+    "statement": "Do a complex git workflow:\n1. Create and switch to branch 'feature/ci-setup'\n2. Create .github/workflows/ci.yml with a basic Node.js CI workflow\n3. git add -A && git commit -m 'ci: add GitHub Actions workflow'\n4. Switch back to main\n5. Merge feature/ci-setup into main\n6. git push origin main\nReport result of each step.",
+    "success_criteria": [
+      {
+        "description": "Produce a codebase state that better satisfies the stated objective and verify it with available evidence."
+      }
+    ],
+    "constraints": []
+  },
+  "selected_plan": {
+    "strategy": "MinimalPatch",
+    "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+    "expected_value": 0.55,
+    "estimated_cost": 0.25,
+    "verification_plan": [
+      {
+        "description": "Run the narrowest command or test that directly checks the requested behavior."
+      }
+    ],
+    "plan_source": "Heuristic"
+  },
+  "candidate_plans": [
+    {
+      "strategy": "MinimalPatch",
+      "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+      "expected_value": 0.55,
+      "estimated_cost": 0.25,
+      "verification_plan": [
+        {
+          "description": "Run the narrowest command or test that directly checks the requested behavior."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "RootCauseRepair",
+      "rationale": "Spend additional effort to understand the underlying failure mode before editing.",
+      "expected_value": 0.68,
+      "estimated_cost": 0.45,
+      "verification_plan": [
+        {
+          "description": "Read the relevant implementation and documentation before mutating."
+        },
+        {
+          "description": "Verify behavior with a runtime command or focused test after the change."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "DiagnosticOnly",
+      "rationale": "If confidence stays too low, stop mutation and return evidence plus options.",
+      "expected_value": 0.35,
+      "estimated_cost": 0.15,
+      "verification_plan": [
+        {
+          "description": "Collect evidence without mutating if the state remains too uncertain."
+        }
+      ],
+      "plan_source": "Heuristic"
+    },
+    {
+      "strategy": "CharacterizationFirst",
+      "rationale": "Stabilize expected behavior with explicit checks before trusting a repair.",
+      "expected_value": 0.64,
+      "estimated_cost": 0.55,
+      "verification_plan": [
+        {
+          "description": "Run the documented examples or existing targeted checks first."
+        },
+        {
+          "description": "Re-run those checks after the change and compare outputs."
+        }
+      ],
+      "plan_source": "Heuristic"
+    }
+  ],
+  "plan_pivots": [
+    {
+      "turn_number": 2,
+      "from": {
+        "strategy": "Greenfield",
+        "rationale": "Build from scratch — prioritize throughput and structure creation over verification.",
+        "expected_value": 0.92,
+        "estimated_cost": 0.1,
+        "verification_plan": [
+          {
+            "description": "Verify the project builds and runs after all files are created."
+          }
+        ],
+        "plan_source": "Heuristic"
+      },
+      "to": {
+        "strategy": "MinimalPatch",
+        "rationale": "Prefer the smallest change that could satisfy the objective with minimal blast radius.",
+        "expected_value": 0.55,
+        "estimated_cost": 0.25,
+        "verification_plan": [
+          {
+            "description": "Run the narrowest command or test that directly checks the requested behavior."
+          }
+        ],
+        "plan_source": "Heuristic"
+      },
+      "trigger": "Plan changed after verification evidence update: Prefer the smallest change that could satisfy the objective with minimal blast radius."
+    }
+  ],
+  "claim": {
+    "objective": {
+      "statement": "Do a complex git workflow:\n1. Create and switch to branch 'feature/ci-setup'\n2. Create .github/workflows/ci.yml with a basic Node.js CI workflow\n3. git add -A && git commit -m 'ci: add GitHub Actions workflow'\n4. Switch back to main\n5. Merge feature/ci-setup into main\n6. git push origin main\nReport result of each step.",
+      "success_criteria": [
+        {
+          "description": "Produce a codebase state that better satisfies the stated objective and verify it with available evidence."
+        }
+      ],
+      "constraints": []
+    },
+    "hypothesis": "If Pipit applies changes guided by the objective, the repository should move to a more correct and validated state: Do a complex git workflow:\n1. Create and switch to branch 'feature/ci-setup'\n2. Create .github/workflows/ci.yml with a basic Node.js CI workflow\n3. git add -A && git commit -m 'ci: add GitHub Actions workflow'\n4. Switch back to main\n5. Merge feature/ci-setup into main\n6. git push origin main\nReport result of each step.",
+    "expected_effects": [
+      "Requested behavior or output should be closer to the objective.",
+      "Evidence should exist for any claimed improvement."
+    ],
+    "assumptions": [
+      {
+        "description": "The provided objective is sufficient to drive the next valid state transition.",
+        "verified": false
+      }
+    ],
+    "verification_plan": [
+      {
+        "description": "Read relevant code and documentation before mutating."
+      },
+      {
+        "description": "Run deterministic checks or commands when available."
+      }
+    ],
+    "confidence": {
+      "root_cause": 0.6,
+      "semantic_understanding": 0.11111111,
+      "side_effect_risk": 0.55,
+      "verification_strength": 1.0,
+      "environment_certainty": 0.5
+    }
+  },
+  "evidence": [
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git checkout -b feature/ci-setup",
+        "output": "[STDERR]\nSwitched to a new branch 'feature/ci-setup'\n",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "mkdir -p .github/workflows",
+        "output": "Command completed successfully (no output).",
+        "success": true
+      }
+    },
+    {
+      "EditApplied": {
+        "path": ".github/workflows/ci.yml",
+        "summary": "write_file succeeded: Created .github/workflows/ci.yml (48 lines)"
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git add -A && git commit -m 'ci: add GitHub Actions workflow'",
+        "output": "[feature/ci-setup 08e40b4] ci: add GitHub Actions workflow\n 5 files changed, 503 insertions(+), 5 deletions(-)\n create mode 100644 .github/workflows/ci.yml\n create mode 100644 .pipit/proofs/proof-1775619195.json\n create mode 100644 .pipit/p...",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git checkout main",
+        "output": "Your branch is up to date with 'origin/main'.\n\n\n[STDERR]\nSwitched to branch 'main'\n",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git merge feature/ci-setup",
+        "output": "Updating a1da8b9..08e40b4\nFast-forward\n .github/workflows/ci.yml            |  48 +++++++\n .pipit/plans/latest.json            |  39 +++++-\n .pipit/proofs/proof-1775619195.json | 178 ++++++++++++++++++++++++++\n .pipit/proofs/proof-177561925...",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git push origin main",
+        "output": "[STDERR]\nTo github.com:sushanthpy/test-web-git-pipit.git\n   a1da8b9..08e40b4  main -> main\n",
+        "success": true
+      }
+    },
+    {
+      "CommandResult": {
+        "kind": "Shell",
+        "command": "git branch && echo \"---\" && ls -la .github/workflows/",
+        "output": "  feature/add-env-setup\n  feature/ci-setup\n* main\n---\ntotal 8\ndrwxr-xr-x@ 3 sushanth  staff   96 Apr  7 20:41 .\ndrwxr-xr-x@ 3 sushanth  staff   96 Apr  7 20:41 ..\n-rw-r--r--@ 1 sushanth  staff  953 Apr  7 20:41 ci.yml\n",
+        "success": true
+      }
+    },
+    {
+      "FileRead": {
+        "path": ".github/workflows/ci.yml",
+        "summary": "read_file succeeded:    1 | name: CI\n   2 | \n   3 | on:\n   4 |   push:\n   5 |     branches: [ main ]\n   6 |   pull_request:\n   7 |     branches: [ main ]\n   8 | \n   9 | jobs:\n  10 |..."
+      }
+    }
+  ],
+  "realized_edits": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "summary": "write_file succeeded: Created .github/workflows/ci.yml (48 lines)"
+    }
+  ],
+  "unresolved_assumptions": [],
+  "risk": {
+    "blast_radius": 0.7,
+    "irreversibility": 0.6,
+    "uncertainty": 1.0,
+    "privilege_level": 0.8,
+    "score": 0.33600003,
+    "action_class": "ShellExecution"
+  },
+  "confidence": {
+    "root_cause": 0.6,
+    "semantic_understanding": 0.11111111,
+    "side_effect_risk": 0.55,
+    "verification_strength": 1.0,
+    "environment_certainty": 0.5
+  },
+  "rollback_checkpoint": {
+    "checkpoint_id": "08e40b40dbccd64e5adb78bf136ff54bb417d406",
+    "strategy": "Reset modified files to git revision 08e40b40dbccd64e5adb78bf136ff54bb417d406 or checkout those paths from that revision.",
+    "reversible": true
+  },
+  "tiers": {
+    "planner": "Heuristic",
+    "verifier": "Heuristic",
+    "governor": "Heuristic"
+  }
+}
